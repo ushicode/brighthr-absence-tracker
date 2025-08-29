@@ -25,7 +25,7 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
         return null;
     }
 
-    const employeeAbsences = absences.filter(absence => absence.employee.id === employee.id);
+    const employeeAbsences: Absence[] = absences.filter((absence: Absence) => absence.employee.id === employee.id);
 
     return (
         <Modal
@@ -50,7 +50,7 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {employeeAbsences.map(absence => (
+                        {employeeAbsences.map((absence: Absence) => (
                             <tr key={absence.id}>
                                 <td>{formatDate(absence.startDate)}</td>
                                 <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
