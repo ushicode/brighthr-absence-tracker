@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: #E10078;
+  color: #e10078;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,15 +24,20 @@ a:hover {
 
 body {
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.3em;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #d1d1d1;
 }
 
 button {
@@ -46,9 +51,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
-  border-color: #E10078;
+  border-color: #e10078;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -60,14 +67,20 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #E10078;
+    color: #e10078;
   }
   button {
     background-color: #f9f9f9;
   }
 }
 
-
+.close-button {
+  margin-top: 20px;
+  float: right;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #d1d1d1;
+}
 
 /* 
 Ideally I would use Tailwind CSS 
@@ -75,9 +88,7 @@ or create styled components/module
 for this but to keep things simple and avoid adding more dependencies, I'm using plain CSS here 
 */
 
-
 .absence-table-container {
-  padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -93,7 +104,7 @@ for this but to keep things simple and avoid adding more dependencies, I'm using
 }
 
 .absence-table-header {
-  background-color: #E10078;
+  background-color: #e10078;
   color: white;
 }
 
@@ -114,7 +125,7 @@ for this but to keep things simple and avoid adding more dependencies, I'm using
 }
 
 .sortable-header:hover {
-  background-color: #E10078;
+  background-color: #e10078;
 }
 
 .absence-table-body tr {
@@ -208,16 +219,25 @@ for this but to keep things simple and avoid adding more dependencies, I'm using
     padding: 10px;
     overflow-x: auto;
   }
-  
+
   .absence-table {
     min-width: 800px;
   }
-  
+
   .absence-table-header th,
   .absence-table-header td,
   .absence-table-body td {
     padding: 8px 12px;
     font-size: 12px;
   }
-  
+}
+
+
+
+footer {
+  margin-top: 20px;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  color: #6b7280;
 }

@@ -34,38 +34,37 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
             contentLabel={contentLabel}
             style={modalCustomStyles}
         >
-          <div>
-           
-              <h2>Absences for: {employee.firstName} {employee.lastName}</h2>
-            {employeeAbsences.length === 0 ? (
-                <p>No absences found for this employee.</p>
-            ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Absence Type</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employeeAbsences.map((absence: Absence) => (
-                            <tr key={absence.id}>
-                                <td>{formatDate(absence.startDate)}</td>
-                                <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
-                                <td>{formatAbsenceType(absence.absenceType)}</td>
-                                <td>{absence.approved ? '🟢 Approved' : '🟡 Pending'}</td>
+            <div>
+
+                <h2>Absences for: {employee.firstName} {employee.lastName}</h2>
+                {employeeAbsences.length === 0 ? (
+                    <p>No absences found for this employee.</p>
+                ) : (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className="sortable-header">Start Date</th>
+                                <th className="sortable-header">End Date</th>
+                                <th className="sortable-header">Absence Type</th>
+                                <th className="sortable-header">Status</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
-          </div>
-          
-           <div style={{ textAlign: 'right', marginTop: '20px' }}>
-             <button onClick={onRequestClose} style={{ float: 'right' }}>Close</button>
-           </div>
+                        </thead>
+                        <tbody className="absence-table-body">
+                            {employeeAbsences.map((absence: Absence) => (
+                                <tr key={absence.id}>
+                                    <td>{formatDate(absence.startDate)}</td>
+                                    <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
+                                    <td className="absence-type">{formatAbsenceType(absence.absenceType)}</td>
+                                    <td>{absence.approved ? '🟢 Approved' : '🟡 Pending'}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+
+                <button onClick={onRequestClose} className="close-button">Close</button>
+            
         </Modal>
     );
 };
