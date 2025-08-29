@@ -1,6 +1,6 @@
 import type { AbsenceType } from "../types";
 
-interface Employee {
+export interface Employee {
   id: string;
   firstName: string;
   lastName: string;

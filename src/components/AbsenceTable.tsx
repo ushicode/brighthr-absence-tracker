@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAbsences } from '../hooks/useAbsence';
 import { formatDate, calculateEndDate, sortAbsences } from '../helpers';
 import type { SortField } from '../types';
 import { useSort } from '../hooks/useSort';
-import type { Absence } from '../interfaces/absence';
+import type { Absence, Employee } from '../interfaces/absence';
 import { sortDirection } from '../constant';
 import { MoveDown, MoveUp } from 'lucide-react';
 
@@ -11,6 +11,8 @@ const AbsenceTable: React.FC = () => {
 
     const { absences, isLoading, error } = useAbsences();
     const { sortConfig, setSortField, toggleSortDirection } = useSort();
+
+    const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error loading absences table. Please refresh the page.</div>;
@@ -31,6 +33,10 @@ const AbsenceTable: React.FC = () => {
         return sortConfig.direction === sortDirection.ASC ? <MoveUp strokeWidth={3} size={12} /> : <MoveDown strokeWidth={3} size={12} />;
     }
 
+    const handleEmployeeNameClick = (employee: Employee) => {
+        setSelectedEmployee(employee);
+        console.log(selectedEmployee);
+    }
 
     return (
         <div>
@@ -61,15 +67,18 @@ const AbsenceTable: React.FC = () => {
                                 <td>{absence.id + 1}</td>
                                 <td>{formatDate(absence.startDate)}</td>
                                 <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
-                                <td>{`${absence.employee.firstName} ${absence.employee.lastName}`}</td>
+                                <td onClick={() => handleEmployeeNameClick(absence.employee)} >
+                                    {`${absence.employee.firstName} ${absence.employee.lastName}`}</td>
                                 <td>
-                                    <span>
+                                    <span title="Status">
                                         {absence.approved ? '🟢 Approved' : '🟡 Pending'}
                                     </span>
                                 </td>
                                 <td>{formatAbsenceType(absence.absenceType)}</td>
                                 <td>
-                                    {absence.conflicts ? '⚠️ Conflict' : 'No Conflict'}
+                                    <span title={absence.conflicts ? 'Conflict detected' : 'No conflict'}>
+                                        {absence.conflicts ? '⚠️ Conflict' : 'No Conflict'}
+                                    </span>
                                 </td>
                             </tr>
                         ))
