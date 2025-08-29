@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAbsences } from '../hooks/useAbsence';
-import { formatDate, calculateEndDate, sortAbsences } from '../helpers';
+import { formatDate, calculateEndDate, sortAbsences, formatAbsenceType } from '../helpers';
 import type { SortField } from '../types';
 import { useSort } from '../hooks/useSort';
 import type { Absence, Employee } from '../interfaces/absence';
@@ -21,11 +21,6 @@ const AbsenceTable: React.FC = () => {
     if (!absences || absences.length === 0) return <div>No absences found</div>;
 
     const sortedAbsences = sortAbsences(absences, sortConfig);
-
-    // todo: move to helpers
-    const formatAbsenceType = (absenceType: string) => {
-        return absenceType.replace('_', ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-    };
 
     const handleSortClick = (field: SortField) => {
         return field === sortConfig.field ? toggleSortDirection() : setSortField(field);

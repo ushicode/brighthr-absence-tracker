@@ -1,6 +1,6 @@
 import React from "react";
 import { modalCustomStyles } from "../constants";
-import { formatDate, calculateEndDate } from "../helpers";
+import { formatDate, calculateEndDate, formatAbsenceType } from "../helpers";
 import type { Absence, Employee } from "../interfaces";
 import Modal from 'react-modal';
 
@@ -26,11 +26,6 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
     }
 
     const employeeAbsences = absences.filter(absence => absence.employee.id === employee.id);
-
-    //todo: move to helpers
-    const formatAbsenceType = (absenceType: string) => {
-        return absenceType.replace('_', ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
-    };
 
     return (
         <Modal
