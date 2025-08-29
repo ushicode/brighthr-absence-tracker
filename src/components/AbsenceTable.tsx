@@ -4,8 +4,10 @@ import { formatDate, calculateEndDate, sortAbsences } from '../helpers';
 import type { SortField } from '../types';
 import { useSort } from '../hooks/useSort';
 import type { Absence, Employee } from '../interfaces/absence';
-import { sortDirection } from '../constant';
+import { sortDirection } from '../constants';
 import { MoveDown, MoveUp } from 'lucide-react';
+import EmployeeAbsenceModal from './EmployeeAbsenceModal';
+
 
 const AbsenceTable: React.FC = () => {
 
@@ -20,6 +22,7 @@ const AbsenceTable: React.FC = () => {
 
     const sortedAbsences = sortAbsences(absences, sortConfig);
 
+    // todo: move to helpers
     const formatAbsenceType = (absenceType: string) => {
         return absenceType.replace('_', ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
     };
@@ -40,7 +43,8 @@ const AbsenceTable: React.FC = () => {
 
     return (
         <div>
-            <table>
+          <div>
+              <table>
                 <thead>
                     <tr>
                         <td>#</td>
@@ -85,6 +89,19 @@ const AbsenceTable: React.FC = () => {
                     }
                 </tbody>
             </table>
+          </div>
+          
+            { //Modal for employee details
+                selectedEmployee && (
+                    <EmployeeAbsenceModal
+                        isOpen={!!selectedEmployee}
+                        onRequestClose={() => setSelectedEmployee(null)}
+                        employee={selectedEmployee}
+                        absences={absences}
+                        contentLabel={`Absence details for ${selectedEmployee.firstName} ${selectedEmployee.lastName}`}
+                    />
+                )
+            }
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { type ReactNode, useReducer } from "react";
 import type { SortAction, SortField } from "../types";
 import type { SortState } from "../interfaces";
-import { SortContext, sortDirection } from "../constant";
+import { SortContext, sortDirection } from "../constants";
 
 
 const sortReducer = (state: SortState, action: SortAction): SortState => {
