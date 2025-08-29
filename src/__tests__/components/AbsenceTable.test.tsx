@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { SortProvider } from '../context/SortContext';
-import AbsenceTable from '../components/AbsenceTable';
-import { apiService } from '../services/api-service';
-import type { Absence } from '../interfaces/absence';
+import { SortProvider } from '../../context/SortContext';
+import AbsenceTable from '../../components/AbsenceTable';
+import { apiService } from '../../services/api-service';
+import type { Absence } from '../../interfaces/absence';
 
 // Mock the API service
-jest.mock('../services/api-service', () => ({
+jest.mock('../../services/api-service', () => ({
   apiService: {
     getAbsences: jest.fn(),
     checkConflict: jest.fn(),
