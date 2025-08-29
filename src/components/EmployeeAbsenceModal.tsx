@@ -34,7 +34,9 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
             contentLabel={contentLabel}
             style={modalCustomStyles}
         >
-            <h2>Absences for: {employee.firstName} {employee.lastName}</h2>
+          <div>
+           
+              <h2>Absences for: {employee.firstName} {employee.lastName}</h2>
             {employeeAbsences.length === 0 ? (
                 <p>No absences found for this employee.</p>
             ) : (
@@ -59,6 +61,11 @@ const EmployeeAbsenceModal: React.FC<EmployeeAbsenceModalProps> = ({
                     </tbody>
                 </table>
             )}
+          </div>
+          
+           <div style={{ textAlign: 'right', marginTop: '20px' }}>
+             <button onClick={onRequestClose} style={{ float: 'right' }}>Close</button>
+           </div>
         </Modal>
     );
 };
