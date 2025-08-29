@@ -1,10 +1,4 @@
-type AbsenceType =
-  | "SICKNESS"
-  | "ANNUAL_LEAVE"
-  | "MEDICAL"
-  | "MATERNITY"
-  | "COMPASSIONATE_LEAVE";
-
+import type { AbsenceType } from "../types";
 
 interface Employee {
   id: string;
