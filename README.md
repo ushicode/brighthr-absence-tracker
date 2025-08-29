@@ -6,30 +6,32 @@ Built with React TypeScript.
 ## Getting Started
 
 ### Prerequisites
- - Node.js ( >= v22)
- - npm
- 
+
+- Node.js ( >= v22)
+- npm
+
 ### Installation & SetUp
 
 Clone the repository and install dependencies:
 
-  ```bash
-  git clone https://github.com/ushicode/brighthr-absence-tracker.git
-  cd brighthr-absence-tracker
-  npm install
+```bash
+git clone https://github.com/ushicode/brighthr-absence-tracker.git
+cd brighthr-absence-tracker
+npm install
 
-  npm run start:dev
+npm run start:dev
 
-  Open http://localhost:5173 in your browser.
-  ```
+Open http://localhost:5173 in your browser.
+```
 
 ### Running Test
+
 ```bash
+  npm run test
 
-
+  npm run test:watch
 ```
 
 ## Implemented Features
-
 
 ## Todos
