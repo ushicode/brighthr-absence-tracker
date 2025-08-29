@@ -15,7 +15,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #E10078;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,8 +24,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex; */
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -47,7 +47,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #E10078;
 }
 button:focus,
 button:focus-visible {
@@ -60,9 +60,164 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #E10078;
   }
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+
+/* 
+Ideally I would use Tailwind CSS 
+or create styled components/module
+for this but to keep things simple and avoid adding more dependencies, I'm using plain CSS here 
+*/
+
+
+.absence-table-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.absence-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.absence-table-header {
+  background-color: #E10078;
+  color: white;
+}
+
+.absence-table-header th,
+.absence-table-header td {
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  align-items: center;
+  /* gap: 6px; */
+}
+
+.sortable-header:hover {
+  background-color: #E10078;
+}
+
+.absence-table-body tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.absence-table-body tr:hover {
+  background-color: #f3f4f6;
+}
+
+.absence-table-body tr:last-child {
+  border-bottom: none;
+}
+
+.absence-table-body td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.absence-table-body td:first-child {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.employee-name {
+  cursor: pointer;
+  color: #1d19f7;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.employee-name:hover {
+  color: #1d19f7;
+  text-decoration: underline;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.conflict-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.conflict-detected {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.no-conflict {
+  background-color: #f5f5f5;
+  color: #065f46;
+}
+
+.absence-type {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.sort-indicator {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .absence-table-container {
+    padding: 10px;
+    overflow-x: auto;
+  }
+  
+  .absence-table {
+    min-width: 800px;
+  }
+  
+  .absence-table-header th,
+  .absence-table-header td,
+  .absence-table-body td {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
 }

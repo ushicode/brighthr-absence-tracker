@@ -8,11 +8,9 @@ const queryClient: QueryClient = new QueryClient();
 
 const App: React.FC = () => {
 
-
   return (
     <QueryClientProvider client={queryClient}>
       <SortProvider>
-      <div>
         <header>
           <h1>BrightHR Absence Tracker</h1>
         </header>
@@ -22,7 +20,6 @@ const App: React.FC = () => {
         <footer>
           <p>© 2024 BrightHR</p>
         </footer>
-      </div>
       </SortProvider>
     </QueryClientProvider>
   )

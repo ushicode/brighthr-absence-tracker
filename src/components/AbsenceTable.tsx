@@ -8,7 +8,6 @@ import { sortDirection } from '../constants';
 import { MoveDown, MoveUp } from 'lucide-react';
 import EmployeeAbsenceModal from './EmployeeAbsenceModal';
 
-
 const AbsenceTable: React.FC = () => {
 
     const { absences, isLoading, error } = useAbsences();
@@ -28,7 +27,14 @@ const AbsenceTable: React.FC = () => {
 
     const renderSortIndicator = (field: SortField) => {
         if (field !== sortConfig.field) return null;
-        return sortConfig.direction === sortDirection.ASC ? <MoveUp strokeWidth={3} size={12} /> : <MoveDown strokeWidth={3} size={12} />;
+        return (
+            <span className="sort-indicator">
+                {sortConfig.direction === sortDirection.ASC ? 
+                    <MoveUp strokeWidth={3} size={12} /> : 
+                    <MoveDown strokeWidth={3} size={12} />
+                }
+            </span>
+        );
     }
 
     const handleEmployeeNameClick = (employee: Employee) => {
@@ -36,56 +42,68 @@ const AbsenceTable: React.FC = () => {
         console.log(selectedEmployee);
     }
 
+    const getConflictClassName = (conflicts: boolean): string => {
+        return conflicts ? 'conflict-indicator conflict-detected' : 'conflict-indicator no-conflict';
+    }
+
+    const getConflictText = (conflicts: boolean): string => {
+        return conflicts ? '⚠️ Conflict' : 'No Conflict';
+    }
+
     return (
-        <div>
-          <div>
-              <table>
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <th onClick={() => handleSortClick('startDate')}>
-                            Start Date {renderSortIndicator('startDate')}
-                        </th>
-                        <th onClick={() => handleSortClick('endDate')}>
-                            End Date {renderSortIndicator('endDate')}
-                        </th>
-                        <th onClick={() => handleSortClick('employeeName')}>
-                            Employee Name {renderSortIndicator('employeeName')}
-                        </th>
-                        <th>Status</th>
-                        <th onClick={() => handleSortClick('absenceType')}>
-                            Absence Type {renderSortIndicator('absenceType')}
-                        </th>
-                        <th>Conflict</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        sortedAbsences.map((absence: Absence) => (
-                            <tr key={absence.id}>
-                                <td>{absence.id + 1}</td>
-                                <td>{formatDate(absence.startDate)}</td>
-                                <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
-                                <td onClick={() => handleEmployeeNameClick(absence.employee)} >
-                                    {`${absence.employee.firstName} ${absence.employee.lastName}`}</td>
-                                <td>
-                                    <span title="Status">
-                                        {absence.approved ? '🟢 Approved' : '🟡 Pending'}
-                                    </span>
-                                </td>
-                                <td>{formatAbsenceType(absence.absenceType)}</td>
-                                <td>
-                                    <span title={absence.conflicts ? 'Conflict detected' : 'No conflict'}>
-                                        {absence.conflicts ? '⚠️ Conflict' : 'No Conflict'}
-                                    </span>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-          </div>
-          
+        <div className="absence-table-container">
+            <div>
+                <table className="absence-table">
+                    <thead className="absence-table-header">
+                        <tr>
+                            <td>#</td>
+                            <th className="sortable-header" onClick={() => handleSortClick('startDate')}>
+                                Start Date {renderSortIndicator('startDate')}
+                            </th>
+                            <th className="sortable-header" onClick={() => handleSortClick('endDate')}>
+                                End Date {renderSortIndicator('endDate')}
+                            </th>
+                            <th className="sortable-header" onClick={() => handleSortClick('employeeName')}>
+                                Employee Name {renderSortIndicator('employeeName')}
+                            </th>
+                            <th>Status</th>
+                            <th className="sortable-header" onClick={() => handleSortClick('absenceType')}>
+                                Absence Type {renderSortIndicator('absenceType')}
+                            </th>
+                            <th>Conflict</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody className="absence-table-body">
+                        {
+                            sortedAbsences.map((absence: Absence) => (
+                                <tr key={absence.id}>
+                                    <td>{absence.id + 1}</td>
+                                    <td>{formatDate(absence.startDate)}</td>
+                                    <td>{formatDate(calculateEndDate(absence.startDate, absence.days))}</td>
+                                    <td className="employee-name" onClick={() => handleEmployeeNameClick(absence.employee)}>
+                                        {`${absence.employee.firstName} ${absence.employee.lastName}`}
+                                    </td>
+                                    <td>
+                                        <span className={`status-indicator ${absence.approved ? 'status-approved' : 'status-pending'}`}>
+                                            {absence.approved ? '🟢 Approved' : '🟡 Pending'}
+                                        </span>
+                                    </td>
+                                    <td className="absence-type">
+                                        {formatAbsenceType(absence.absenceType)}
+                                    </td>
+                                    <td>
+                                        <span className={getConflictClassName(absence.conflicts as boolean)} title={absence.conflicts ? 'Conflict detected' : 'No conflict'}>
+                                            {getConflictText(absence.conflicts as boolean)}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
             { //Modal for employee details
                 selectedEmployee && (
                     <EmployeeAbsenceModal
